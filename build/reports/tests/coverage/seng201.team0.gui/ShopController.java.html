@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ShopController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">seng201-team0-project</a> &gt; <a href="index.source.html" class="el_package">seng201.team0.gui</a> &gt; <span class="el_source">ShopController.java</span></div><h1>ShopController.java</h1><pre class="source lang-java linenums">package seng201.team0.gui;
+
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.scene.control.Button;
+import seng201.team0.GameEnvironment;
+import seng201.team0.services.TowerService;
+import seng201.team0.services.UpgradeService;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+/**
+ * Controller for the shop.fxml window.
+ */
+
+public class ShopController {
+    private final GameEnvironment gameEnvironment;
+    int selectedTower;
+    int selectedUpgrade;
+<span class="nc" id="L22">    boolean towerSelected = false;</span>
+<span class="nc" id="L23">    boolean upgradeSelected = false;</span>
+    @FXML
+    public Button towerButton1;
+    @FXML
+    public Button towerButton2;
+    @FXML
+    public Button towerButton3;
+    @FXML
+    public Button towerButton4;
+    @FXML
+    public Label costInfoTower1;
+    @FXML
+    public Label costInfoTower2;
+    @FXML
+    public Label costInfoTower3;
+    @FXML
+    public Label costInfoTower4;
+    @FXML
+    public Label loadSpeedInfoTower1;
+    @FXML
+    public Label loadSpeedInfoTower2;
+    @FXML
+    public Label loadSpeedInfoTower3;
+    @FXML
+    public Label loadSpeedInfoTower4;
+    @FXML
+    public Label loadSizeInfoTower1;
+    @FXML
+    public Label loadSizeInfoTower2;
+    @FXML
+    public Label loadSizeInfoTower3;
+    @FXML
+    public Label loadSizeInfoTower4;
+    @FXML
+    public Button upgradeButton1;
+    @FXML
+    public Button upgradeButton2;
+    @FXML
+    public Button upgradeButton3;
+    @FXML
+    public Label costInfoUpgrade1;
+    @FXML
+    public Label costInfoUpgrade2;
+    @FXML
+    public Label costInfoUpgrade3;
+    @FXML
+    public Button backButton;
+    @FXML
+    public Button buyButton;
+    @FXML
+    public Button inventoryButton;
+    @FXML
+    public Label coinsValue;
+
+<span class="nc" id="L77">    private TowerService bloodTower = new TowerService(10, 1, new ArrayList&lt;&gt;(List.of(&quot;Blood&quot;)), 10,  &quot;Blood Tower&quot;);</span>
+<span class="nc" id="L78">    private TowerService sweatTower = new TowerService(10, 1, new ArrayList&lt;&gt;(List.of(&quot;Sweat&quot;)), 10, &quot;Sweat Tower&quot;);</span>
+<span class="nc" id="L79">    private TowerService tearsTower = new TowerService(10, 1, new ArrayList&lt;&gt;(List.of(&quot;Tears&quot;)), 10, &quot;Tears Tower&quot;);</span>
+<span class="nc" id="L80">    private TowerService allTower = new TowerService(10, 1, new ArrayList&lt;&gt;(Arrays.asList(&quot;Blood&quot;, &quot;Sweat&quot;, &quot;Tears&quot;)), 50, &quot;All Tower&quot;);</span>
+
+<span class="nc" id="L82">    private UpgradeService loadSizeUpgrade = new UpgradeService(&quot;LoadSize&quot;, 1.1, 5);</span>
+<span class="nc" id="L83">    private UpgradeService speedUpgrade = new UpgradeService(&quot;Speed&quot;, 1.1, 5);</span>
+<span class="nc" id="L84">    private UpgradeService lifeUpgrade = new UpgradeService(20);</span>
+
+<span class="nc" id="L86">    private ArrayList&lt;TowerService&gt; towerServiceArrayList = new ArrayList&lt;&gt;(Arrays.asList(bloodTower, sweatTower, tearsTower, allTower));</span>
+<span class="nc" id="L87">    private ArrayList&lt;UpgradeService&gt; upgradeServiceArrayList = new ArrayList&lt;&gt;(Arrays.asList(loadSizeUpgrade, speedUpgrade, lifeUpgrade));</span>
+
+    /** The constructor for the ShopController, takes a game environment as a parameter.
+     * @param g GameEnvironment object.
+     */
+<span class="nc" id="L92">    public ShopController(GameEnvironment g){</span>
+
+<span class="nc" id="L94">        gameEnvironment = g;</span>
+
+<span class="nc" id="L96">    }</span>
+
+    /**
+     * Initializer for ShopController, determines whether the user has come from the setup screen and initializes accordingly.
+     */
+    public void initialize() {
+
+<span class="nc" id="L103">        updateBuy();</span>
+
+<span class="nc" id="L105">        coinsValue.setText(String.valueOf(gameEnvironment.getCoins()));</span>
+
+<span class="nc" id="L107">        costInfoTower1.setText(String.valueOf(bloodTower.getPrice()));</span>
+<span class="nc" id="L108">        costInfoTower2.setText(String.valueOf(sweatTower.getPrice()));</span>
+<span class="nc" id="L109">        costInfoTower3.setText(String.valueOf(tearsTower.getPrice()));</span>
+<span class="nc" id="L110">        costInfoTower4.setText(String.valueOf(allTower.getPrice()));</span>
+<span class="nc" id="L111">        buyButton.setDisable(true);</span>
+
+<span class="nc" id="L113">        selectedTower = -1;</span>
+<span class="nc" id="L114">        selectedUpgrade = -1;</span>
+
+<span class="nc" id="L116">        costInfoUpgrade1.setText(String.valueOf(loadSizeUpgrade.getPrice()));</span>
+<span class="nc" id="L117">        costInfoUpgrade2.setText(String.valueOf(speedUpgrade.getPrice()));</span>
+<span class="nc" id="L118">        costInfoUpgrade3.setText(String.valueOf(lifeUpgrade.getPrice()));</span>
+
+<span class="nc" id="L120">        upgradeButton1.setText(&quot;Increase load size by 1.1X&quot;);</span>
+<span class="nc" id="L121">        upgradeButton2.setText(&quot;Increase load speed by 1.1X&quot;);</span>
+<span class="nc" id="L122">        upgradeButton3.setText(&quot;Gain an extra life&quot;);</span>
+
+<span class="nc" id="L124">        loadSpeedInfoTower1.setText(String.valueOf(bloodTower.getLoadSpeed()));</span>
+<span class="nc" id="L125">        loadSpeedInfoTower2.setText(String.valueOf(sweatTower.getLoadSpeed()));</span>
+<span class="nc" id="L126">        loadSpeedInfoTower3.setText(String.valueOf(tearsTower.getLoadSpeed()));</span>
+<span class="nc" id="L127">        loadSpeedInfoTower4.setText(String.valueOf(allTower.getLoadSpeed()));</span>
+
+<span class="nc" id="L129">        loadSizeInfoTower1.setText(String.valueOf(bloodTower.getLoadSize()));</span>
+<span class="nc" id="L130">        loadSizeInfoTower2.setText(String.valueOf(sweatTower.getLoadSize()));</span>
+<span class="nc" id="L131">        loadSizeInfoTower3.setText(String.valueOf(tearsTower.getLoadSize()));</span>
+<span class="nc" id="L132">        loadSizeInfoTower4.setText(String.valueOf(allTower.getLoadSize()));</span>
+
+<span class="nc" id="L134">        towerButton1.setText(bloodTower.getTowerName());</span>
+<span class="nc" id="L135">        towerButton2.setText(sweatTower.getTowerName());</span>
+<span class="nc" id="L136">        towerButton3.setText(tearsTower.getTowerName());</span>
+<span class="nc" id="L137">        towerButton4.setText(allTower.getTowerName());</span>
+
+<span class="nc" id="L139">    }</span>
+
+    /**
+     * On Action method for the back button, opens the appropriate screen.
+     */
+    public void backPressed(){
+
+<span class="nc" id="L146">        gameEnvironment.closeShopScreen();</span>
+
+<span class="nc bnc" id="L148" title="All 2 branches missed.">        if (gameEnvironment.getStartingShop()) {</span>
+<span class="nc" id="L149">            gameEnvironment.launchSetupScreen();</span>
+        } else{
+<span class="nc" id="L151">            gameEnvironment.setMainScreenFromSelection(false);</span>
+<span class="nc" id="L152">            gameEnvironment.launchMainScreen();</span>
+        }
+
+<span class="nc" id="L155">    }</span>
+
+    /**
+     * On Action button for tower 1, shows the tower as selected.
+     */
+    public void tower1Pressed(){
+
+<span class="nc" id="L162">        towerSelected = true;</span>
+<span class="nc" id="L163">        upgradeSelected = false;</span>
+<span class="nc" id="L164">        selectedTower = 0;</span>
+<span class="nc" id="L165">        buyButton.setDisable(false);</span>
+
+<span class="nc" id="L167">        towerButton1.setStyle(&quot;-fx-background-color: slateblue; -fx-text-fill: white;&quot;);</span>
+<span class="nc" id="L168">        towerButton2.setStyle(&quot;&quot;);</span>
+<span class="nc" id="L169">        towerButton3.setStyle(&quot;&quot;);</span>
+<span class="nc" id="L170">        towerButton4.setStyle(&quot;&quot;);</span>
+<span class="nc" id="L171">        upgradeButton1.setStyle(&quot;&quot;);</span>
+<span class="nc" id="L172">        upgradeButton2.setStyle(&quot;&quot;);</span>
+<span class="nc" id="L173">        upgradeButton3.setStyle(&quot;&quot;);</span>
+
+<span class="nc" id="L175">        updateBuy();</span>
+
+<span class="nc" id="L177">    }</span>
+
+    /**
+     * On Action button for tower 2, shows the tower as selected.
+     */
+    public void tower2Pressed(){
+
+<span class="nc" id="L184">        towerSelected = true;</span>
+<span class="nc" id="L185">        upgradeSelected = false;</span>
+<span class="nc" id="L186">        selectedTower = 1;</span>
+<span class="nc" id="L187">        buyButton.setDisable(false);</span>
+
+<span class="nc" id="L189">        towerButton2.setStyle(&quot;-fx-background-color: slateblue; -fx-text-fill: white;&quot;);</span>
+<span class="nc" id="L190">        towerButton1.setStyle(&quot;&quot;);</span>
+<span class="nc" id="L191">        towerButton3.setStyle(&quot;&quot;);</span>
+<span class="nc" id="L192">        towerButton4.setStyle(&quot;&quot;);</span>
+<span class="nc" id="L193">        upgradeButton1.setStyle(&quot;&quot;);</span>
+<span class="nc" id="L194">        upgradeButton2.setStyle(&quot;&quot;);</span>
+<span class="nc" id="L195">        upgradeButton3.setStyle(&quot;&quot;);</span>
+
+<span class="nc" id="L197">        updateBuy();</span>
+
+<span class="nc" id="L199">    }</span>
+
+    /**
+     * On Action button for tower 3, shows the tower as selected.
+     */
+    public void tower3Pressed(){
+
+<span class="nc" id="L206">        towerSelected = true;</span>
+<span class="nc" id="L207">        upgradeSelected = false;</span>
+<span class="nc" id="L208">        selectedTower = 2;</span>
+<span class="nc" id="L209">        buyButton.setDisable(false);</span>
+
+<span class="nc" id="L211">        towerButton3.setStyle(&quot;-fx-background-color: slateblue; -fx-text-fill: white;&quot;);</span>
+<span class="nc" id="L212">        towerButton2.setStyle(&quot;&quot;);</span>
+<span class="nc" id="L213">        towerButton1.setStyle(&quot;&quot;);</span>
+<span class="nc" id="L214">        towerButton4.setStyle(&quot;&quot;);</span>
+<span class="nc" id="L215">        upgradeButton1.setStyle(&quot;&quot;);</span>
+<span class="nc" id="L216">        upgradeButton2.setStyle(&quot;&quot;);</span>
+<span class="nc" id="L217">        upgradeButton3.setStyle(&quot;&quot;);</span>
+
+<span class="nc" id="L219">        updateBuy();</span>
+
+<span class="nc" id="L221">    }</span>
+
+    /**
+     * On Action button for tower 4, shows the tower as selected.
+     */
+    public void tower4Pressed(){
+
+<span class="nc" id="L228">        towerSelected = true;</span>
+<span class="nc" id="L229">        upgradeSelected = false;</span>
+<span class="nc" id="L230">        selectedTower = 3;</span>
+<span class="nc" id="L231">        buyButton.setDisable(false);</span>
+
+<span class="nc" id="L233">        towerButton4.setStyle(&quot;-fx-background-color: slateblue; -fx-text-fill: white;&quot;);</span>
+<span class="nc" id="L234">        towerButton2.setStyle(&quot;&quot;);</span>
+<span class="nc" id="L235">        towerButton3.setStyle(&quot;&quot;);</span>
+<span class="nc" id="L236">        towerButton1.setStyle(&quot;&quot;);</span>
+<span class="nc" id="L237">        upgradeButton1.setStyle(&quot;&quot;);</span>
+<span class="nc" id="L238">        upgradeButton2.setStyle(&quot;&quot;);</span>
+<span class="nc" id="L239">        upgradeButton3.setStyle(&quot;&quot;);</span>
+
+<span class="nc" id="L241">        updateBuy();</span>
+
+<span class="nc" id="L243">    }</span>
+    /**
+     * On Action button for upgrade 1, shows the upgrade as selected.
+     */
+    public void upgrade1Pressed(){
+
+<span class="nc" id="L249">        towerSelected = false;</span>
+<span class="nc" id="L250">        upgradeSelected = true;</span>
+<span class="nc" id="L251">        selectedUpgrade = 0;</span>
+<span class="nc" id="L252">        buyButton.setDisable(false);</span>
+
+<span class="nc" id="L254">        towerButton4.setStyle(&quot;&quot;);</span>
+<span class="nc" id="L255">        towerButton2.setStyle(&quot;&quot;);</span>
+<span class="nc" id="L256">        towerButton3.setStyle(&quot;&quot;);</span>
+<span class="nc" id="L257">        towerButton1.setStyle(&quot;&quot;);</span>
+<span class="nc" id="L258">        upgradeButton1.setStyle(&quot;-fx-background-color: slateblue; -fx-text-fill: white;&quot;);</span>
+<span class="nc" id="L259">        upgradeButton2.setStyle(&quot;&quot;);</span>
+<span class="nc" id="L260">        upgradeButton3.setStyle(&quot;&quot;);</span>
+
+<span class="nc" id="L262">        updateBuy();</span>
+
+<span class="nc" id="L264">    }</span>
+
+    /**
+     * On Action button for upgrade 2, shows the upgrade as selected.
+     */
+    public void upgrade2Pressed(){
+
+<span class="nc" id="L271">        towerSelected = false;</span>
+<span class="nc" id="L272">        upgradeSelected = true;</span>
+<span class="nc" id="L273">        selectedUpgrade = 1;</span>
+<span class="nc" id="L274">        buyButton.setDisable(false);</span>
+
+<span class="nc" id="L276">        towerButton4.setStyle(&quot;&quot;);</span>
+<span class="nc" id="L277">        towerButton2.setStyle(&quot;&quot;);</span>
+<span class="nc" id="L278">        towerButton3.setStyle(&quot;&quot;);</span>
+<span class="nc" id="L279">        towerButton1.setStyle(&quot;&quot;);</span>
+<span class="nc" id="L280">        upgradeButton1.setStyle(&quot;&quot;);</span>
+<span class="nc" id="L281">        upgradeButton2.setStyle(&quot;-fx-background-color: slateblue; -fx-text-fill: white;&quot;);</span>
+<span class="nc" id="L282">        upgradeButton3.setStyle(&quot;&quot;);</span>
+
+<span class="nc" id="L284">        updateBuy();</span>
+
+<span class="nc" id="L286">    }</span>
+
+    /**
+     * On Action button for upgrade 3, shows the upgrade as selected.
+     */
+    public void upgrade3Pressed(){
+
+<span class="nc" id="L293">        towerSelected = false;</span>
+<span class="nc" id="L294">        upgradeSelected = true;</span>
+<span class="nc" id="L295">        selectedUpgrade = 2;</span>
+<span class="nc" id="L296">        buyButton.setDisable(false);</span>
+
+<span class="nc" id="L298">        towerButton4.setStyle(&quot;&quot;);</span>
+<span class="nc" id="L299">        towerButton2.setStyle(&quot;&quot;);</span>
+<span class="nc" id="L300">        towerButton3.setStyle(&quot;&quot;);</span>
+<span class="nc" id="L301">        towerButton1.setStyle(&quot;&quot;);</span>
+<span class="nc" id="L302">        upgradeButton1.setStyle(&quot;&quot;);</span>
+<span class="nc" id="L303">        upgradeButton2.setStyle(&quot;&quot;);</span>
+<span class="nc" id="L304">        upgradeButton3.setStyle(&quot;-fx-background-color: slateblue; -fx-text-fill: white;&quot;);</span>
+
+<span class="nc" id="L306">        updateBuy();</span>
+
+<span class="nc" id="L308">    }</span>
+
+    /**
+     * On Action method for the inventory button, sets the shopToInventory method in GameEnvironment.
+     */
+    public void inventoryPressed(){
+
+<span class="nc" id="L315">        gameEnvironment.closeShopScreen();</span>
+<span class="nc" id="L316">        gameEnvironment.launchInventoryScreen();</span>
+<span class="nc" id="L317">        gameEnvironment.setShopToInventory(true);</span>
+<span class="nc" id="L318">        gameEnvironment.setMainToInventory(false);</span>
+
+<span class="nc" id="L320">    }</span>
+
+    /**
+     * On Action method for the buy button, clones a tower or upgrade and adds it to the users inventory.
+     */
+    public void onBuyPressed(){
+
+<span class="nc bnc" id="L327" title="All 2 branches missed.">        if (towerSelected) {</span>
+
+<span class="nc" id="L329">            TowerService clone = towerServiceArrayList.get(selectedTower).makeClone();</span>
+<span class="nc" id="L330">            clone.buy(gameEnvironment, gameEnvironment.getTowerInventory());</span>
+<span class="nc" id="L331">            coinsValue.setText(String.valueOf(gameEnvironment.getCoins()));</span>
+
+        }
+
+<span class="nc bnc" id="L335" title="All 2 branches missed.">        if (upgradeSelected) {</span>
+
+<span class="nc bnc" id="L337" title="All 2 branches missed.">            if (selectedUpgrade == 0) {</span>
+
+<span class="nc" id="L339">                UpgradeService clone = loadSizeUpgrade.makeClone();</span>
+<span class="nc" id="L340">                clone.buy(gameEnvironment, gameEnvironment.getLoadSizeUpgrades());</span>
+
+            }
+
+<span class="nc bnc" id="L344" title="All 2 branches missed.">            if (selectedUpgrade == 1) {</span>
+
+<span class="nc" id="L346">                UpgradeService clone = speedUpgrade.makeClone();</span>
+<span class="nc" id="L347">                clone.buy(gameEnvironment, gameEnvironment.getSpeedUpgrades());</span>
+
+            }
+
+<span class="nc bnc" id="L351" title="All 2 branches missed.">            if (selectedUpgrade == 2) {</span>
+
+<span class="nc" id="L353">                UpgradeService clone = lifeUpgrade.makeClone();</span>
+<span class="nc" id="L354">                clone.buy(gameEnvironment, gameEnvironment.getLifeUpgrades());</span>
+
+            }
+
+<span class="nc" id="L358">            coinsValue.setText(String.valueOf(gameEnvironment.getCoins()));</span>
+
+        }
+
+<span class="nc" id="L362">        updateBuy();</span>
+
+<span class="nc" id="L364">    }</span>
+
+    /**
+     * Helper function for determining whether the user can buy another tower or upgrade.
+     */
+    @SuppressWarnings(&quot;SpellCheckingInspection&quot;)
+    public void updateBuy(){
+
+<span class="nc" id="L372">        boolean buyable = true;</span>
+
+<span class="nc bnc" id="L374" title="All 2 branches missed.">        if (gameEnvironment.getCoins() &lt;= 0){</span>
+
+<span class="nc" id="L376">            buyable = false;</span>
+
+        }
+
+<span class="nc bnc" id="L380" title="All 2 branches missed.">        if (towerSelected) {</span>
+
+<span class="nc bnc" id="L382" title="All 2 branches missed.">            if (gameEnvironment.getCoins() - towerServiceArrayList.get(selectedTower).getPrice() &lt; 0) {</span>
+
+<span class="nc" id="L384">                buyable = false;</span>
+
+            }
+
+<span class="nc bnc" id="L388" title="All 2 branches missed.">            if (gameEnvironment.getTowerInventory().size() &gt; 9) {</span>
+
+<span class="nc" id="L390">                buyable = false;</span>
+
+            }
+
+        }
+
+<span class="nc bnc" id="L396" title="All 2 branches missed.">        if(upgradeSelected){</span>
+
+<span class="nc bnc" id="L398" title="All 2 branches missed.">            if (gameEnvironment.getCoins() - upgradeServiceArrayList.get(selectedUpgrade).getPrice() &lt; 0) {</span>
+<span class="nc" id="L399">                buyable = false;</span>
+
+            }
+
+        }
+
+<span class="nc bnc" id="L405" title="All 2 branches missed.">        if(!buyable){</span>
+
+<span class="nc" id="L407">            buyButton.setDisable(true);</span>
+
+        } else {
+
+<span class="nc" id="L411">            buyButton.setDisable(false);</span>
+
+        }
+
+<span class="nc" id="L415">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>

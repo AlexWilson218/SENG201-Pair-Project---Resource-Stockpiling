@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="seng201.team0.unittests.services.TowerServiceTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2024-05-22T22:22:14" hostname="cs23131fw" time="0.007">
+  <properties/>
+  <testcase name="testBuyFullInventory()" classname="seng201.team0.unittests.services.TowerServiceTest" time="0.001"/>
+  <testcase name="testSellNoInventory()" classname="seng201.team0.unittests.services.TowerServiceTest" time="0.0"/>
+  <testcase name="testBuy()" classname="seng201.team0.unittests.services.TowerServiceTest" time="0.001"/>
+  <testcase name="testSell()" classname="seng201.team0.unittests.services.TowerServiceTest" time="0.0"/>
+  <testcase name="testTowerBreakHighLevel()" classname="seng201.team0.unittests.services.TowerServiceTest" time="0.0"/>
+  <testcase name="testSellWrongIndex()" classname="seng201.team0.unittests.services.TowerServiceTest" time="0.001"/>
+  <testcase name="testUpgrade()" classname="seng201.team0.unittests.services.TowerServiceTest" time="0.0"/>
+  <testcase name="testLevelUp()" classname="seng201.team0.unittests.services.TowerServiceTest" time="0.0"/>
+  <testcase name="testBuyNoCoins()" classname="seng201.team0.unittests.services.TowerServiceTest" time="0.001"/>
+  <testcase name="testMakeClone()" classname="seng201.team0.unittests.services.TowerServiceTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

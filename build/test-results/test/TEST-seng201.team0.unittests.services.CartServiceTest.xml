@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="seng201.team0.unittests.services.CartServiceTest" tests="13" skipped="0" failures="0" errors="0" timestamp="2024-05-22T22:22:14" hostname="cs23131fw" time="0.026">
+  <properties/>
+  <testcase name="testGetSpeed()" classname="seng201.team0.unittests.services.CartServiceTest" time="0.014"/>
+  <testcase name="testGetTypes()" classname="seng201.team0.unittests.services.CartServiceTest" time="0.001"/>
+  <testcase name="testGetCurrentFill()" classname="seng201.team0.unittests.services.CartServiceTest" time="0.0"/>
+  <testcase name="testSetTimeLeft()" classname="seng201.team0.unittests.services.CartServiceTest" time="0.001"/>
+  <testcase name="testGetTimeLeft()" classname="seng201.team0.unittests.services.CartServiceTest" time="0.001"/>
+  <testcase name="testGetSize()" classname="seng201.team0.unittests.services.CartServiceTest" time="0.0"/>
+  <testcase name="testTimeRanOut()" classname="seng201.team0.unittests.services.CartServiceTest" time="0.001"/>
+  <testcase name="testDecreaseTimeLeft()" classname="seng201.team0.unittests.services.CartServiceTest" time="0.001"/>
+  <testcase name="testGetFilled()" classname="seng201.team0.unittests.services.CartServiceTest" time="0.0"/>
+  <testcase name="testSetCurrentFill()" classname="seng201.team0.unittests.services.CartServiceTest" time="0.0"/>
+  <testcase name="testSetSize()" classname="seng201.team0.unittests.services.CartServiceTest" time="0.001"/>
+  <testcase name="testMakeClone()" classname="seng201.team0.unittests.services.CartServiceTest" time="0.0"/>
+  <testcase name="testSetSpeed()" classname="seng201.team0.unittests.services.CartServiceTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
